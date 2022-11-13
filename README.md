@@ -25,7 +25,7 @@ The time frame is limited to 72h after you've opened this page so make it count
 
 * Abra o repositorio  
 ```
-cd onesight-test
+cd onesight
 ```
 
 * Instale as dependências  
