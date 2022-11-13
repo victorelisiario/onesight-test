@@ -1,6 +1,6 @@
 import { Button, Checkbox, Icon, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
-import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
-import { useEffect, useContext, useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { useEffect, useContext } from "react";
 import { CandidatesContext } from "../context/useCandidates";
 import { api } from "../services/axios";
 import { CandidateInfoModal } from "./CandidateInfoModal";

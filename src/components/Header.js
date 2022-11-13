@@ -1,4 +1,4 @@
-import { Flex, Text, Image, HStack, Link } from "@chakra-ui/react";
+import { Flex, Image, HStack, Link } from "@chakra-ui/react";
 
 export function Header() {
   return (
