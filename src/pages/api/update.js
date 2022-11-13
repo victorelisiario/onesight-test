@@ -28,7 +28,5 @@ export default async function handler(req, res) {
     // If candidate was not found, return Not found
     return response.json({ message: "Candidate not found" })
   }
-
-  res.status(200).json(candidates);
 }
 

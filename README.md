@@ -25,7 +25,7 @@ The time frame is limited to 72h after you've opened this page so make it count
 
 * Abra o repositorio  
 ```
-cd onesight
+cd onesight-test
 ```
 
 * Instale as dependências  
@@ -39,4 +39,4 @@ yarn dev
 ```  
 
 ## Abaixo, o projeto funcionando:
-![](https://media.giphy.com/media/4rkT1LyBuGaPx921vW/giphy.gif)
+
