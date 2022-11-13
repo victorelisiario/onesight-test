@@ -1,7 +1,6 @@
 import { Flex, Link, Stack, Icon, Text } from "@chakra-ui/react";
 import { RiDashboardLine, } from "react-icons/ri";
 
-
 export function Sidebar() {
   return (
     <Flex h='100%'

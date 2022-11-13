@@ -10,14 +10,15 @@ export function CandidatesTable() {
   const { candidates, setCandidates } = useContext(CandidatesContext);
   const { isChecked, setIsChecked } = useContext(useMultipleDeleteSelection);
 
-  console.log(isChecked)
-
+  //LOADS THE DATA ONCE
   useEffect(() => {
     api.get('/read').then(response => {
       setCandidates(response.data)
     })
   }, [])
 
+  // RECIEVE AN UUID EVERY TIME A CHECKBOX IS CHECKED AND
+  // REMOVE OR ADD IT TO ISCHECKED ARRAY
   function handleMultipleDeleteMark(uuid) {
     const checkedIndex = isChecked.findIndex(checked => checked === uuid);
 
@@ -30,11 +31,13 @@ export function CandidatesTable() {
     }
   }
 
+  // FORMATS DATA FROM STRING TO DISPLAY ON SCREEN
   function formatDate(string) {
     var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
     return new Date(string).toLocaleDateString([], options);
   }
 
+  // HANDLE DELETE CANDIDATE FUNCTION
   function handleDeleteCandidate(candidadeUUID) {
     api.post('/delete', { uuid: candidadeUUID }).then(response => {
       setCandidates(response.data)
@@ -76,9 +79,9 @@ export function CandidatesTable() {
                       <Icon as={FaRegTrashAlt} />
                     </Button>
                   </Td>
-                </Tr>)
-            }
-            )}
+                </Tr>
+              )
+            })}
         </Tbody>
       </Table>
     </TableContainer >

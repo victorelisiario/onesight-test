@@ -11,7 +11,6 @@ export default async function handler(req, res) {
   // Find candidade index
   const uuid = req.body.uuid
   const candidateIndex = candidates.findIndex(candidate => candidate.uuid === uuid);
-  console.log(candidateIndex)
 
   // If candidate was found, remove it from array
   if (candidateIndex !== -1) {

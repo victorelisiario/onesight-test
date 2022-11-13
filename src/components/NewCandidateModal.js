@@ -10,6 +10,7 @@ export function NewCandidateModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
+  // SET FORMS STATES
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -20,7 +21,9 @@ export function NewCandidateModal() {
   const [newSkill, setNewSkill] = useState('');
   const [meeting, setMeeting] = useState('');
 
+  // REQUEST A CREATE REQUEST TO API
   async function handleCreateNewCandidate() {
+    //CREATE THE OBJECT TO BE ADDED
     const newCandidate = {
       name,
       email,
@@ -32,7 +35,9 @@ export function NewCandidateModal() {
       meeting
     }
 
+    // POST REQUEST TO API
     await api.post('/create', newCandidate).then(response => {
+      //SUCESS TOAST
       toast({
         title: 'New candidate created',
         description: `${name} profile created`,
@@ -40,6 +45,7 @@ export function NewCandidateModal() {
         duration: 2000,
       })
 
+      // SET STATES BACK TO DEFAULT
       setName('');
       setEmail('');
       setPhone('');
@@ -50,17 +56,22 @@ export function NewCandidateModal() {
       setNewSkill('');
       setMeeting('');
 
+      // UPDATE HOME LIST
       setCandidates(response.data);
+
+      // CLOSE MODAL
       onClose();
     })
 
   }
 
+  // ADD TYPED SKILL TO SKILLS ARRAY
   function handleAddNewSkill() {
     setSkills([...skills, newSkill])
     setNewSkill('')
   }
 
+  // REMOVE SKILL FROM SKILLS ARRAY
   function handleRemoveSkill(key) {
     const newSkillList = [...skills];
     newSkillList.splice(key, 1);

@@ -10,8 +10,7 @@ export function UpdateCandidateModal({ candidate }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  console.log(candidate.phone)
-
+  // CREATE FORM STATES BASE ON CANDIDATE OBJECT
   const [name, setName] = useState(candidate.name);
   const [email, setEmail] = useState(candidate.email);
   const [phone, setPhone] = useState(candidate.phone);
@@ -22,7 +21,9 @@ export function UpdateCandidateModal({ candidate }) {
   const [newSkill, setNewSkill] = useState('');
   const [meeting, setMeeting] = useState(candidate.meeting);
 
+  // HANDLE UPDATE CANDIDATE
   async function handleUpdateCandidate() {
+    // CREATE NEW CADADIDATE OBJECT TO BE UPDATED
     const newCandidate = {
       uuid: candidate.uuid,
       name,
@@ -35,6 +36,7 @@ export function UpdateCandidateModal({ candidate }) {
       meeting
     }
 
+    // POST THE UPDATE REQUEST
     await api.post('/update', newCandidate).then(response => {
       toast({
         title: 'New candidate created',
@@ -43,17 +45,21 @@ export function UpdateCandidateModal({ candidate }) {
         duration: 2000,
       })
 
+      // SET NEW CANDIDATES LIST
       setCandidates(response.data);
+
+      // CLOSE MODAL
       onClose();
     })
 
   }
-
+  // ADD TYPED SKILL TO SKILLS ARRAY
   function handleAddNewSkill() {
     setSkills([...skills, newSkill])
     setNewSkill('')
   }
 
+  // REMOVE SKILL FROM SKILLS ARRAY
   function handleRemoveSkill(key) {
     const newSkillList = [...skills];
     newSkillList.splice(key, 1);

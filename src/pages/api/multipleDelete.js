@@ -13,6 +13,7 @@ export default async function handler(req, res) {
 
   // for each uuid
   uuidToBeDelete.map(uuid => {
+
     // Find current uuid index
     const candidateIndex = candidates.findIndex(candidate => candidate.uuid === uuid);
 

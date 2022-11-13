@@ -1,6 +1,5 @@
 import path from 'path';
 import { promises as fs } from 'fs';
-import { v4 as uuidv4 } from 'uuid';
 
 export default async function handler(req, res) {
   //Find the absolute path of the json directory
@@ -12,7 +11,6 @@ export default async function handler(req, res) {
   // Find candidade index
   const uuid = req.body.uuid
   const candidateIndex = candidates.findIndex(candidate => candidate.uuid === uuid);
-  console.log(candidateIndex);
 
   // If candidate was found, remove it from array
   if (candidateIndex !== -1) {

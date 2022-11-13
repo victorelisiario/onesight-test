@@ -1,11 +1,11 @@
 import { HStack, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Input, Text, Flex, Box, Image, Stack, Divider, Textarea, Tag, TagLabel, TagCloseButton, Grid, SimpleGrid, Wrap, WrapItem, useToast } from "@chakra-ui/react"
-
-import { api } from "../services/axios";
 import { UpdateCandidateModal } from "./UpdateCandidateModal";
 
 export function CandidateInfoModal({ candidate }) {
+  //MODAL FUNCTIONS
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // FORMATS STRING DATE TO DISPLAY ON SCREEN
   function formatDate(string) {
     var options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
     return new Date(string).toLocaleDateString([], options);
@@ -95,7 +95,6 @@ export function CandidateInfoModal({ candidate }) {
                 px="2"
                 py="1"
               >{candidate.description ? candidate.description : 'No description available'}</Text>
-
             </Box>
 
             <Box mb="4">
@@ -126,7 +125,6 @@ export function CandidateInfoModal({ candidate }) {
                 px="2"
                 py="1"
               >{candidate.meeting ? formatDate(candidate.meeting) : 'No meeting scheduled'}</Text>
-
             </Box>
           </ModalBody>
 
