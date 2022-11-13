@@ -5,23 +5,26 @@ import { CandidatesContext } from "../context/useCandidates";
 
 import { api } from "../services/axios";
 
-export function NewCandidateModal() {
+export function UpdateCandidateModal({ candidate }) {
   const { setCandidates } = useContext(CandidatesContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [age, setAge] = useState('');
-  const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
-  const [skills, setSkills] = useState([]);
-  const [newSkill, setNewSkill] = useState('');
-  const [meeting, setMeeting] = useState('');
+  console.log(candidate.phone)
 
-  async function handleCreateNewCandidate() {
+  const [name, setName] = useState(candidate.name);
+  const [email, setEmail] = useState(candidate.email);
+  const [phone, setPhone] = useState(candidate.phone);
+  const [age, setAge] = useState(candidate.age);
+  const [image, setImage] = useState(candidate.image);
+  const [description, setDescription] = useState(candidate.description);
+  const [skills, setSkills] = useState(candidate.skills);
+  const [newSkill, setNewSkill] = useState('');
+  const [meeting, setMeeting] = useState(candidate.meeting);
+
+  async function handleUpdateCandidate() {
     const newCandidate = {
+      uuid: candidate.uuid,
       name,
       email,
       phone,
@@ -32,23 +35,13 @@ export function NewCandidateModal() {
       meeting
     }
 
-    await api.post('/create', newCandidate).then(response => {
+    await api.post('/update', newCandidate).then(response => {
       toast({
         title: 'New candidate created',
         description: `${name} profile created`,
         status: 'info',
         duration: 2000,
       })
-
-      setName('');
-      setEmail('');
-      setPhone('');
-      setAge('');
-      setImage('');
-      setDescription('');
-      setSkills([]);
-      setNewSkill('');
-      setMeeting('');
 
       setCandidates(response.data);
       onClose();
@@ -69,11 +62,11 @@ export function NewCandidateModal() {
 
   return (
     <>
-      <Button h="8" bg="blue.700" colorScheme="blue" fontWeight="400" onClick={onOpen}>+ New Candidate</Button>
+      <Button colorScheme='blue' onClick={onOpen}>UPDATE</Button>
       <Modal size="xl" isOpen={isOpen} onClose={onClose} >
         <ModalOverlay />
         <ModalContent >
-          <ModalHeader bg="gray.700">New Candidate Information</ModalHeader>
+          <ModalHeader bg="gray.700">Update Candidate Information</ModalHeader>
           <ModalBody bg="gray.700">
 
             <Text>PERSONAL INFORMATION </Text>
@@ -97,7 +90,7 @@ export function NewCandidateModal() {
                     <Box flex='5' mr="4">
                       <Text mb='1px'>Phone:</Text>
                       <Input onChange={() => setPhone(event.target.value)}
-                        value={phone} type="number" placeholder='(00) 00000-0000' size='sm' />
+                        value={phone} placeholder='(00) 00000-0000' size='sm' />
                     </Box>
                     <Box flex='1'>
                       <Text mb='1px'>Age:</Text>
@@ -163,7 +156,7 @@ export function NewCandidateModal() {
             <HStack>
               <Button variant="outline"
                 border="2px" bg="transparent" color="blue.500" borderColor="blue.500" onClick={onClose}>CANCEL</Button>
-              <Button colorScheme='blue' mr={3} onClick={handleCreateNewCandidate}>
+              <Button colorScheme='blue' mr={3} onClick={handleUpdateCandidate}>
                 SAVE
               </Button>
             </HStack>

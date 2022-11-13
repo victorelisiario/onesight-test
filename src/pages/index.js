@@ -6,8 +6,22 @@ import { Sidebar } from '../components/sidebar'
 import { CandidatesTable } from '../components/CandidatesTable';
 import { NewCandidateModal } from '../components/NewCandidateModal';
 
+import { useContext } from 'react';
+import { CandidatesContext } from '../context/useCandidates';
+import { useMultipleDeleteSelection } from '../context/useMultipleDeleteSelection';
+import { api } from '../services/axios';
 
 export default function Home() {
+  const { setCandidates } = useContext(CandidatesContext);
+  const { isChecked, setIsChecked } = useContext(useMultipleDeleteSelection);
+
+  function handleDeleteMultipleCandidates() {
+    api.post('/multipleDelete', { isChecked }).then(response => {
+      setCandidates(response.data)
+    })
+    setIsChecked([])
+  }
+
   return (
     <>
       <Header />
@@ -22,11 +36,18 @@ export default function Home() {
           <Stack spacing='2' w="100%" px="4" maxW='1200px'>
             <Flex w="100%" px="4" maxW='1200px' justify="start">
               <HStack spacing="2" >
-                <Button h="8" bg="white" color="blue.700" fontWeight="400" colorScheme="blue"><Icon as={FaRegTrashAlt} /></Button>
+                <Button
+                  isDisabled={isChecked.length > 0 ? false : true}
+                  h="8"
+                  bg="white"
+                  color="blue.700"
+                  fontWeight="400"
+                  colorScheme="blue"
+                  onClick={handleDeleteMultipleCandidates}
+                ><Icon as={FaRegTrashAlt} /></Button>
                 <NewCandidateModal />
               </HStack>
             </Flex>
-
             <CandidatesTable />
           </Stack>
         </Flex>
